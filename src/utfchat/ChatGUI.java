@@ -64,7 +64,6 @@ public class ChatGUI {
         String st = tf.getText();
         st = "[" + name.getText() + "] " + st;
         tf.setText("");
-        // Remove if you are going to implement for remote invocation
         try {
             server.publish(st);
         } catch (Exception e) {
