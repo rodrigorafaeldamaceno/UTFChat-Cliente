@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package utfchat;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,7 +41,7 @@ public class ChatGUI {
             try {
                 client = new ChatClient(name.getText());
                 client.setGUI(this);
-                server = (ChatServerInt) Naming.lookup("rmi://" + ip.getText() + "/myabc");
+                server = (ChatServerInt) Naming.lookup("rmi://" + ip.getText() + "/utfchat");
                 server.login(client);
                 updateUsers(server.getConnected());
                 connect.setText("Desconectado");
@@ -62,7 +58,7 @@ public class ChatGUI {
 
     public void sendText() {
         if (connect.getText().equals("Connect")) {
-            JOptionPane.showMessageDialog(frame, "Você prcisa conectar primeiro.");
+            JOptionPane.showMessageDialog(frame, "Você precisa conectar primeiro.");
             return;
         }
         String st = tf.getText();
@@ -78,7 +74,7 @@ public class ChatGUI {
 
     public void writeMsg(String st) {
         tx.setText(tx.getText() + "\n" + st);
-        
+
     }
 
     public void updateUsers(Vector v) {
@@ -115,19 +111,28 @@ public class ChatGUI {
         connect = new JButton("Conectar");
         JButton bt = new JButton("Enviar");
         lst = new JList();
+        main.setBackground(Color.gray);
         main.setLayout(new BorderLayout(5, 5));
         top.setLayout(new GridLayout(1, 0, 5, 5));
+        top.setBackground(Color.gray);
         cn.setLayout(new BorderLayout(5, 5));
         bottom.setLayout(new BorderLayout(5, 5));
-        top.add(new JLabel("Seu nome: "));
+        JLabel jlNome = new JLabel("Seu nome:");
+        jlNome.setForeground(Color.white);
+        top.add(jlNome);
         top.add(name);
-        top.add(new JLabel("Servidor IP: "));
+        JLabel jlIP = new JLabel("Servidor IP: ");
+        jlIP.setForeground(Color.white);
+        top.add(jlIP);
         top.add(ip);
         top.add(connect);
+        cn.setBackground(Color.gray);
+        bottom.setBackground(Color.gray);
         cn.add(new JScrollPane(tx), BorderLayout.CENTER);
         cn.add(lst, BorderLayout.EAST);
         bottom.add(tf, BorderLayout.CENTER);
         bottom.add(bt, BorderLayout.EAST);
+        
         main.add(top, BorderLayout.NORTH);
         main.add(cn, BorderLayout.CENTER);
         main.add(bottom, BorderLayout.SOUTH);
